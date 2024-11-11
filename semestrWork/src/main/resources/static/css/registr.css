@@ -1,0 +1,18 @@
+body {
+    background-color: #fff;
+}
+
+.form-block {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.btn-submit {
+    margin: 0 auto;
+}
+
+.form-control::placeholder {
+    opacity: 0.4;
+}
