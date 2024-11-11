@@ -38,38 +38,6 @@ public class WebSecurityConfig {
         return authProvider;
     }
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers( "/static/**","/usercheck","/registration","/registration/new","/static/**").permitAll()
-//                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-//                        .anyRequest().authenticated()
-//                );
-//        http.formLogin(formLogin ->
-//                        formLogin
-//                                .loginPage("/login")
-//                                .loginProcessingUrl("/usercheck")// /login (POST)
-//                                .usernameParameter("username")
-//                                .passwordParameter("password")
-//                                .successHandler((request, response, authentication) -> {
-//                                    if (authentication.getAuthorities().stream()
-//                                            .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ADMIN"))) {
-//                                        response.sendRedirect("/admin/");
-//                                    } else {
-//                                        response.sendRedirect("/");
-//                                    }
-//                                })
-//                                .failureUrl("/login?error=true")
-//                                .permitAll())
-//                .logout((logout) ->
-//                        logout.permitAll()
-//                );
-//
-//        http.csrf(customizer -> customizer.disable());
-//        return http.build();
-//    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http

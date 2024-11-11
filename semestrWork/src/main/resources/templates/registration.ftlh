@@ -23,11 +23,6 @@
             </div>
 
             <div class="mb-3">
-                <label for="useremail" class="form-label">Почта:</label>
-                <input type="text" id="useremail" name="useremail" required class="form-control" placeholder="Введите вашу почту" oninput="validateEmail(this)">
-            </div>
-
-            <div class="mb-3">
                 <label for="password" class="form-label">Придумайте пароль:</label>
                 <input type="password" id="password" name="password" required class="form-control" placeholder="Введите пароль" oninput="validatePassword(this)">
             </div>
