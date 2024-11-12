@@ -22,7 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user != null) {
             return new UserDetailImpl(user);
         } else {
-            throw new UsernameNotFoundException("User not found!");
+            throw new UsernameNotFoundException("Пользователь не найден.");
         }
     }
 }

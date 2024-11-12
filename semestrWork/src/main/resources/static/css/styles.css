@@ -58,3 +58,6 @@ pre {
     overflow-x: auto;
     white-space: pre-wrap; /* Enable line wrapping */
 }
+.none {
+    display: none;
+}

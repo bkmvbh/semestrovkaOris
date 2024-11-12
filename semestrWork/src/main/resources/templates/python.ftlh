@@ -33,13 +33,13 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="historyModalLabel">История сохраненных скриптов</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close closer" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="historyContent">
-                <!-- Здесь будет загружена история скриптов -->
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-secondary closer" data-bs-dismiss="modal">Закрыть</button>
             </div>
         </div>
     </div>
@@ -97,16 +97,39 @@
                     scriptItem.classList.add('script-item', 'mb-3');
                     scriptItem.innerHTML = `
                         <div class="d-flex justify-content-between">`
-                        + `Скрипт_` + script.id +
+                        + script.fileName +
                         `<button class="btn btn-sm btn-outline-primary load-script">Загрузить</button>
                         </div
                         <div class="border p-2 bg-light mt-2">` + script.content + `</div>`;
                     // Добавляем обработчик для загрузки скрипта в текстовое поле
-                    scriptItem.querySelector('.load-script').addEventListener('click', function (event) {
-                        const fileId = event.target.getAttribute('data-file-id');
-                        window.location.href = `/files/download/` + fileId;
+                    scriptItem.querySelector('.load-script').addEventListener('click', function () {
+                        const fileId = script.id
+                        console.log(fileId)
+                        // Отправка POST-запроса для загрузки файла
+                        fetch(`/download/` + fileId, {
+                            method: 'GET'
+                        })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error("Ошибка загрузки файла.");
+                                }
+                                return response.blob();
+                            })
+                            .then(blob => {
+                                // Создание временной ссылки для скачивания файла
+                                const url = window.URL.createObjectURL(blob);
+                                const a = document.createElement('a');
+                                a.href = url;
+                                a.download = script.fileName; // Устанавливаем имя файла
+                                document.body.appendChild(a);
+                                a.click();
+                                a.remove();
+                                window.URL.revokeObjectURL(url);
+                            })
+                            .catch(error => {
+                                alert("Ошибка при скачивании файла: " + error.message);
+                            });
                     });
-
                     historyContent.appendChild(scriptItem);
                 });
 
@@ -116,6 +139,12 @@
             .catch(error => {
                 alert("Ошибка загрузки истории: " + error.message);
             });
+
+        const btnsClose = document.querySelectorAll(".closer")
+
+        btnsClose.forEach(btn =>  btn.addEventListener('click', () => {
+            (document.getElementById('historyModal')).classList.remove("show")
+        }));
     });
 </script>
 </body>

@@ -20,5 +20,5 @@ public class UserFiles {
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
-    private String content;
+    private String path;
 }
